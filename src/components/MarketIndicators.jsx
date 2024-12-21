@@ -11,22 +11,22 @@ const MarketIndicators = () => {
       description: 'CNN Market Fear & Greed Index'
     },
     {
-      title: 'Barchart VIX Data',
+      title: 'Coin Market Cap Bitcoin',
       icon: <TrendingUp className="w-6 h-6" />,
-      url: 'https://www.barchart.com/stocks/quotes/$VIX',
-      description: 'Comprehensive Market Analysis'
+      url: 'https://www.barchart.com/sthttps://coinmarketcap.com/currencies/bitcoin/ocks/quotes/$VIX',
+      description: 'Comprehensive Bitcoin Analysis'
     },
     {
       title: 'Barchart VIX Data',
       icon: <TrendingUp className="w-6 h-6" />,
       url: 'https://www.barchart.com/stocks/quotes/$VIX',
-      description: 'Comprehensive Market Analysis'
+      description: 'CBOE Volatility Index ($VIX)'
     },
     {
       title: 'Barchart SPY Data',
       icon: <TrendingUp className="w-6 h-6" />,
       url: 'https://www.barchart.com/stocks/quotes/SPY',
-      description: 'Comprehensive Market Analysis'
+      description: 'Comprehensive SPY Analysis'
     }
   ];
 
