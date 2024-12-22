@@ -88,10 +88,10 @@ const MarketIndicators = () => {
       showHealth: false // This card won't show health data
     },
     {
-      title: 'Barchart SPY Data',
+      title: 'Barchart Futures Data',
       icon: <TrendingUp className="w-6 h-6" />,
-      url: 'https://www.barchart.com/stocks/quotes/SPY',
-      description: 'Comprehensive SPY Analysis',
+      url: 'https://www.barchart.com/futures',
+      description: 'Comprehensive Futures Analysis',
       showHealth: true // Flag to show health data in this card
     }
   ];
