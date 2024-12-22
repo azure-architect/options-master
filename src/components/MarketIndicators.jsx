@@ -90,7 +90,7 @@ const MarketIndicators = () => {
     {
       title: 'Barchart Futures Data',
       icon: <TrendingUp className="w-6 h-6" />,
-      url: 'https://www.barchart.com/futures',
+      url: 'https://www.barchart.com/futures/heat-map',
       description: 'Comprehensive Futures Analysis',
       showHealth: true // Flag to show health data in this card
     }
