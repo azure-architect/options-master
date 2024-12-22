@@ -1,32 +1,98 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/card';
-import { BarChart2, TrendingUp } from 'lucide-react';
+import { Alert, AlertDescription } from '../components/ui/alert';
+import { BarChart2, TrendingUp, Activity } from 'lucide-react';
 
 const MarketIndicators = () => {
+  const [healthData, setHealthData] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchHealthData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('http://192.168.254.123:8000/health');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setHealthData(data);
+        setError(null);
+      } catch (err) {
+        setError(err.message);
+        console.error('Error fetching health data:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHealthData();
+    const interval = setInterval(fetchHealthData, 30000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const renderHealthData = () => {
+    if (loading) {
+      return <p className="text-sm text-gray-500 dark:text-gray-400">Loading health data...</p>;
+    }
+    if (error) {
+      return (
+        <Alert variant="destructive" className="mt-2">
+          <AlertDescription>Error: {error}</AlertDescription>
+        </Alert>
+      );
+    }
+    if (healthData) {
+      return (
+        <div className="mt-2">
+          <p className="text-sm font-medium">
+            Status: {' '}
+            <span className={`${
+              healthData.status === 'healthy' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
+            }`}>
+              {healthData.status}
+            </span>
+          </p>
+          {healthData.message && (
+            <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+              {healthData.message}
+            </p>
+          )}
+        </div>
+      );
+    }
+    return null;
+  };
+
   const indicators = [
     {
       title: 'Fear & Greed Index',
       icon: <BarChart2 className="w-6 h-6" />,
       url: 'https://www.cnn.com/markets/fear-and-greed',
-      description: 'CNN Market Fear & Greed Index'
+      description: 'CNN Market Fear & Greed Index',
+      showHealth: true // Flag to show health data in this card
     },
     {
       title: 'Coin Market Cap Bitcoin',
       icon: <TrendingUp className="w-6 h-6" />,
-      url: 'https://www.barchart.com/sthttps://coinmarketcap.com/currencies/bitcoin/ocks/quotes/$VIX',
-      description: 'Comprehensive Bitcoin Analysis'
+      url: 'https://coinmarketcap.com/currencies/bitcoin',
+      description: 'Comprehensive Bitcoin Analysis',
+      showHealth: true // Flag to show health data in this card
     },
     {
       title: 'Barchart VIX Data',
       icon: <TrendingUp className="w-6 h-6" />,
       url: 'https://www.barchart.com/stocks/quotes/$VIX',
-      description: 'CBOE Volatility Index ($VIX)'
+      description: 'CBOE Volatility Index ($VIX)',
+      showHealth: false // This card won't show health data
     },
     {
       title: 'Barchart SPY Data',
       icon: <TrendingUp className="w-6 h-6" />,
       url: 'https://www.barchart.com/stocks/quotes/SPY',
-      description: 'Comprehensive SPY Analysis'
+      description: 'Comprehensive SPY Analysis',
+      showHealth: true // Flag to show health data in this card
     }
   ];
 
@@ -55,10 +121,11 @@ const MarketIndicators = () => {
                 <p className="text-sm text-gray-600 dark:text-gray-300">
                   {indicator.description}
                 </p>
-                {/* Placeholder for future scraped data */}
-                <div className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                  Click to view current data
-                </div>
+                {indicator.showHealth && (
+                  <div className="mt-2">
+                    {renderHealthData()}
+                  </div>
+                )}
               </CardContent>
             </a>
           </Card>

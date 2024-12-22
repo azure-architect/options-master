@@ -68,3 +68,26 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+# Create a privileged Ubuntu container with 4GB RAM
+pct create 105 local:vztmpl/ubuntu-22.04-standard_22.04-1_amd64.tar.zst \
+  --hostname lxc-fastapi-1 \
+  --memory 4096 \
+  --cores 2 \
+  --swap 1024 \
+  --net0 name=eth0,bridge=vmbr0,ip=dhcp \
+  --ostype ubuntu \
+  --password pedro \
+  --unprivileged 0
+
+# Start the container
+pct start 105
+
+# Enter the container
+pct enter 105
+
+# Once inside, update and install Python dependencies
+apt update && apt upgrade -y
+apt install -y python3-pip python3-venv git curl
