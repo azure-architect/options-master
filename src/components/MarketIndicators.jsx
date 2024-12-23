@@ -85,7 +85,7 @@ const MarketIndicators = () => {
       icon: <TrendingUp className="w-6 h-6" />,
       url: 'https://www.barchart.com/stocks/quotes/$VIX',
       description: 'CBOE Volatility Index ($VIX)',
-      showHealth: false // This card won't show health data
+      showHealth: true // This card won't show health data
     },
     {
       title: 'Barchart Futures Data',

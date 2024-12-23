@@ -6,6 +6,7 @@ import { ThemeProvider } from './components/ThemeSwitcher';
 import OCCSymbolPage from './pages/OCCSymbolPage';
 import HomePage from './pages/HomePage';
 import MarketOverview from './pages/MarketOverview';
+import PortfolioPage from './pages/PortfolioPage';
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -33,6 +34,7 @@ function App() {
                 <Route path="/" element={<HomePage />} /> 
                 <Route path="/occ-symbol" element={<OCCSymbolPage />} />
                 <Route path="/marketoverview" element={<MarketOverview />} />
+                <Route path="/portfolio" element={<PortfolioPage />} />
                 {/* Add more routes as needed */}
               </Routes>
             </div>
