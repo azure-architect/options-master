@@ -12,7 +12,7 @@ const MarketIndicators = () => {
     const fetchHealthData = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://192.168.254.123:8000/health');
+        const response = await fetch('http://192.168.0.106:8000/health');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
